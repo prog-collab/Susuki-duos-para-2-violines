@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#1a1a1a">
+<title>Visor · Fun for 2 Violins</title>
+<style>
+  :root { --bar:#241710; --accent:#b9842c; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; height:100%; background:#111; overflow:hidden;
+    font-family:Georgia,"Times New Roman",serif; color:#eee; }
+  #stage { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  #canvas { box-shadow:0 6px 30px rgba(0,0,0,.6); background:#fff; transition:transform .22s ease, opacity .22s ease; }
+  #canvas.slide-left { transform:translateX(-60px); opacity:0; }
+  #canvas.slide-right { transform:translateX(60px); opacity:0; }
+  /* click zones */
+  .zone { position:absolute; top:0; bottom:0; width:30%; z-index:5; cursor:pointer; }
+  #prevZone { left:0; } #nextZone { right:0; }
+  /* top bar (auto-hide) */
+  #bar { position:absolute; top:0; left:0; right:0; z-index:20; display:flex; align-items:center;
+    gap:12px; padding:10px 14px; background:linear-gradient(#000a,#0000);
+    transition:opacity .3s; }
+  #bar.hide { opacity:0; pointer-events:none; }
+  #bar a.back { color:#fff; text-decoration:none; font-size:22px; line-height:1; padding:4px 8px;
+    border-radius:8px; background:#ffffff22; }
+  #title { flex:1; min-width:0; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #title small { display:block; color:#cbb48f; font-size:12px; }
+  /* bottom controls */
+  #ctl { position:absolute; bottom:0; left:0; right:0; z-index:20; display:flex; align-items:center;
+    justify-content:center; gap:18px; padding:12px; background:linear-gradient(#0000,#000a);
+    transition:opacity .3s; }
+  #ctl.hide { opacity:0; pointer-events:none; }
+  #ctl button { background:var(--accent); color:#fff; border:0; width:54px; height:54px; border-radius:50%;
+    font-size:24px; cursor:pointer; box-shadow:0 2px 8px #0007; }
+  #ctl button:disabled { opacity:.3; cursor:default; }
+  #page { min-width:74px; text-align:center; font-size:16px; letter-spacing:1px; }
+  #loading { position:absolute; z-index:10; color:#bbb; font-size:16px; }
+  #hint { position:absolute; bottom:78px; left:0; right:0; text-align:center; color:#fff9;
+    font-size:13px; z-index:15; transition:opacity .5s; }
+</style>
+</head>
+<body>
+  <div id="stage"><canvas id="canvas"></canvas></div>
+  <div id="loading">Cargando… / Loading…</div>
+  <div id="prevZone" class="zone"></div>
+  <div id="nextZone" class="zone"></div>
+
+  <div id="bar">
+    <a class="back" href="index.html" title="Volver al índice / Back to index">‹</a>
+    <div id="title">—</div>
+  </div>
+  <div id="hint">← →  o pedal para pasar página · toca para ocultar</div>
+  <div id="ctl">
+    <button id="prev" aria-label="Anterior">‹</button>
+    <span id="page">– / –</span>
+    <button id="next" aria-label="Siguiente">›</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+  (function () {
+    const q = new URLSearchParams(location.search);
+    const file = q.get('f');
+    const es = q.get('es') || '';
+    const en = q.get('en') || '';
+    document.getElementById('title').innerHTML =
+      (es ? es.replace(/</g,'&lt;') : 'PDF') + (en ? '<small>'+en.replace(/</g,'&lt;')+'</small>' : '');
+    document.title = (es || 'Visor') + ' · Fun for 2 Violins';
+
+    if (!file) { document.getElementById('loading').textContent = 'Archivo no indicado.'; return; }
+    if (!window.pdfjsLib) { document.getElementById('loading').textContent = 'No se pudo cargar el visor (sin conexión).'; return; }
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const pageEl = document.getElementById('page');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    let pdf = null, cur = 1, total = 0, rendering = false, pending = null;
+
+    pdfjsLib.getDocument(file).promise.then(doc => {
+      pdf = doc; total = doc.numPages;
+      document.getElementById('loading').style.display = 'none';
+      render(1);
+    }).catch(err => {
+      document.getElementById('loading').textContent = 'No se pudo abrir el PDF.';
+      console.error(err);
+    });
+
+    function render(n) {
+      if (!pdf) return;
+      n = Math.min(Math.max(n, 1), total);
+      if (rendering) { pending = n; return; }
+      rendering = true; cur = n;
+      pdf.getPage(n).then(page => {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+        const vp1 = page.getViewport({ scale: 1 });
+        const margin = 0.96;
+        const scale = Math.min(window.innerWidth / vp1.width, window.innerHeight / vp1.height) * margin;
+        const vp = page.getViewport({ scale: scale * dpr });
+        canvas.width = vp.width; canvas.height = vp.height;
+        canvas.style.width = (vp.width / dpr) + 'px';
+        canvas.style.height = (vp.height / dpr) + 'px';
+        return page.render({ canvasContext: ctx, viewport: vp }).promise;
+      }).then(() => {
+        pageEl.textContent = cur + ' / ' + total;
+        prevBtn.disabled = cur <= 1; nextBtn.disabled = cur >= total;
+        rendering = false;
+        if (pending !== null) { const p = pending; pending = null; render(p); }
+      }).catch(() => { rendering = false; });
+    }
+
+    function flip(dir) {           // dir +1 next, -1 prev
+      const target = cur + dir;
+      if (target < 1 || target > total) return;
+      canvas.classList.add(dir > 0 ? 'slide-left' : 'slide-right');
+      setTimeout(() => {
+        render(target);
+        canvas.classList.remove('slide-left', 'slide-right');
+        canvas.classList.add(dir > 0 ? 'slide-right' : 'slide-left');
+        requestAnimationFrame(() => requestAnimationFrame(() =>
+          canvas.classList.remove('slide-left', 'slide-right')));
+      }, 150);
+    }
+    const next = () => flip(1), prev = () => flip(-1);
+
+    // Buttons & click zones
+    nextBtn.onclick = next; prevBtn.onclick = prev;
+    document.getElementById('nextZone').onclick = next;
+    document.getElementById('prevZone').onclick = prev;
+
+    // Keyboard + page-turner pedals (arrows / PageUp-Down / space / enter)
+    window.addEventListener('keydown', e => {
+      const k = e.key;
+      if (['ArrowRight','ArrowDown','PageDown',' ','Spacebar','Enter'].includes(k)) { e.preventDefault(); next(); }
+      else if (['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(k)) { e.preventDefault(); prev(); }
+      else if (k === 'Home') render(1);
+      else if (k === 'End') render(total);
+      else if (k === 'f' || k === 'F') toggleFs();
+    });
+
+    // Touch swipe (horizontal)
+    let x0 = null;
+    document.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive:true});
+    document.addEventListener('touchend', e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) (dx < 0 ? next() : prev());
+      x0 = null;
+    }, {passive:true});
+
+    // Auto-hide chrome
+    const bar = document.getElementById('bar'), ctl = document.getElementById('ctl'), hint = document.getElementById('hint');
+    let t; function show(){ bar.classList.remove('hide'); ctl.classList.remove('hide'); clearTimeout(t); t=setTimeout(()=>{bar.classList.add('hide'); ctl.classList.add('hide');},3000); }
+    setTimeout(()=>{ hint.style.opacity = 0; }, 4000);
+    ['mousemove','keydown','touchstart'].forEach(ev=>document.addEventListener(ev, show, {passive:true}));
+    show();
+
+    function toggleFs(){ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => render(cur), 120); });
+  })();
+  </script>
+</body>
+</html>

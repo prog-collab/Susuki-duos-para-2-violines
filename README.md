@@ -13,6 +13,18 @@ La página es una PWA. Al servirla por HTTPS (p. ej. GitHub Pages), el navegador
 muestra el icono **Instalar** en la barra de direcciones; también desde
 menú ⋮ → *Instalar Fun for 2 Violins*. Una vez instalada funciona sin conexión.
 
+
+## Visor con pase de página por pedal
+Cada pieza se abre en `viewer.html`: muestra **una página a la vez a pantalla
+completa** y se pasa **de lado**. Funciona con pedales para partituras
+(AirTurn, PageFlip, etc.) y con teclado:
+
+- **Siguiente:** flecha derecha/abajo, Re Pág, barra espaciadora o Enter
+- **Anterior:** flecha izquierda/arriba, Av Pág o Retroceso
+- También: clic en los bordes, deslizar el dedo, botones en pantalla, **F** pantalla completa
+
+> Configura tu pedal en modo "teclas de flecha" o "Page Up/Down".
+
 ## Publicar en GitHub Pages
 1. Sube todo el contenido de esta carpeta a un repositorio.
 2. *Settings → Pages → Branch: main / root*.

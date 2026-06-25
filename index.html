@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6b4423">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Fun for 2 Violins · Índice</title>
+<style>
+  :root {
+    --bg:#f6f4ef; --panel:#fff; --ink:#2b2b2b; --muted:#7a756c;
+    --accent:#7a4f2b; --accent2:#b9842c; --line:#e7e2d8; --shadow:0 1px 3px rgba(0,0,0,.07);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Iowan Old Style",Georgia,"Times New Roman",serif;
+    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; }
+  header { background:linear-gradient(135deg,#6b4423,#8a5a2b); color:#fdfbf6;
+    padding:34px 20px 28px; text-align:center; }
+  header .logo { width:96px; height:96px; margin-bottom:6px;
+    filter:drop-shadow(0 3px 6px rgba(0,0,0,.35)); }
+  header h1 { margin:0; font-size:30px; letter-spacing:.5px; }
+  header p { margin:8px 0 0; opacity:.9; font-size:15px; }
+  .wrap { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+  .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    position:sticky; top:0; background:var(--bg); padding:14px 0; z-index:5; }
+  #search { flex:1; min-width:200px; padding:11px 14px; font-size:15px; font-family:inherit;
+    border:1px solid var(--line); border-radius:10px; background:var(--panel); color:var(--ink); }
+  .lang { display:flex; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .lang button { border:0; background:var(--panel); color:var(--muted); padding:10px 14px;
+    font-size:14px; cursor:pointer; font-family:inherit; }
+  .lang button.on { background:var(--accent); color:#fff; }
+  h2 { font-size:18px; color:var(--accent); border-bottom:2px solid var(--line);
+    padding-bottom:8px; margin:30px 0 14px; }
+  .grid { display:grid; gap:10px; }
+  .card { display:flex; align-items:center; gap:14px; background:var(--panel);
+    border:1px solid var(--line); border-radius:12px; padding:13px 15px; text-decoration:none;
+    color:inherit; box-shadow:var(--shadow); transition:transform .12s, box-shadow .12s; }
+  .card:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(0,0,0,.12); border-color:var(--accent2); }
+  .num { flex:none; width:42px; height:42px; border-radius:9px; background:#f0e7d8;
+    color:var(--accent); font-weight:700; font-size:14px; display:flex; align-items:center;
+    justify-content:center; }
+  .info { flex:1; min-width:0; }
+  .title { font-size:16px; font-weight:600; }
+  .composer { font-size:13px; color:var(--muted); margin-top:2px; }
+  .years { opacity:.7; }
+  .meta { flex:none; text-align:right; font-size:12px; color:var(--muted); }
+  .pdf { display:inline-block; margin-top:5px; background:var(--accent); color:#fff;
+    padding:3px 9px; border-radius:6px; font-size:11px; letter-spacing:.5px; }
+  .empty { text-align:center; color:var(--muted); padding:40px; display:none; }
+  footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" src="logo.svg" alt="Dos violines cruzados / Two crossed violins">
+  <h1>Fun for 2 Violins</h1>
+  <p data-en="Duets arranged by Marianne Rygner · Suzuki repertoire" data-es="Dúos arreglados por Marianne Rygner · Repertorio Suzuki">Dúos arreglados por Marianne Rygner · Repertorio Suzuki</p>
+</header>
+<div class="wrap">
+  <div class="controls">
+    <input id="search" type="search" data-en-ph="Search by title, composer, country…" data-es-ph="Buscar por título, compositor, país…" placeholder="Buscar por título, compositor, país…">
+    <div class="lang">
+      <button data-lang="es" class="on">ES</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+    <section class="vol" data-vol="1">
+      <h2 data-en="Volume 1 — 18 classical pieces" data-es="Volumen 1 — 18 piezas clásicas">Volumen 1 — 18 piezas clásicas</h2>
+      <div class="grid">
+      <a class="card" href="canciones/v1-01-theme-from-witches-dance.pdf" target="_blank" data-vol="1" data-search="theme from &#x27;witches&#x27; dance&#x27; tema de la «danza de las brujas» niccolò paganini italia">
+        <div class="num">1.1</div>
+        <div class="info">
+          <div class="title" data-en="Theme from &#x27;Witches&#x27; Dance&#x27;" data-es="Tema de la «Danza de las brujas»">Tema de la «Danza de las brujas»</div>
+          <div class="composer">Niccolò Paganini <span class="years">(1782–1840)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">1 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-02-country-dance-contredanse-d-aspasie.pdf" target="_blank" data-vol="1" data-search="country dance (contredanse d&#x27;aspasie) contradanza andré e. m. grétry bélgica">
+        <div class="num">1.2</div>
+        <div class="info">
+          <div class="title" data-en="Country Dance (Contredanse d&#x27;Aspasie)" data-es="Contradanza">Contradanza</div>
+          <div class="composer">André E. M. Grétry <span class="years">(1741–1813)</span> · Bélgica</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-03-the-two-grenadiers.pdf" target="_blank" data-vol="1" data-search="the two grenadiers los dos granaderos robert schumann alemania">
+        <div class="num">1.3</div>
+        <div class="info">
+          <div class="title" data-en="The Two Grenadiers" data-es="Los dos granaderos">Los dos granaderos</div>
+          <div class="composer">Robert Schumann <span class="years">(1810–56)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">1 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-04-waltz-op-39-no-15.pdf" target="_blank" data-vol="1" data-search="waltz (op.39 no.15) vals johannes brahms alemania">
+        <div class="num">1.4</div>
+        <div class="info">
+          <div class="title" data-en="Waltz (op.39 no.15)" data-es="Vals">Vals</div>
+          <div class="composer">Johannes Brahms <span class="years">(1833–97)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">1 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-05-gavotte-from-mignon.pdf" target="_blank" data-vol="1" data-search="gavotte from &#x27;mignon&#x27; gavota de «mignon» ambroise thomas francia">
+        <div class="num">1.5</div>
+        <div class="info">
+          <div class="title" data-en="Gavotte from &#x27;Mignon&#x27;" data-es="Gavota de «Mignon»">Gavota de «Mignon»</div>
+          <div class="composer">Ambroise Thomas <span class="years">(1811–96)</span> · Francia</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-06-humoresque-op-101-no-7.pdf" target="_blank" data-vol="1" data-search="humoresque (op.101 no.7) humoresca antonín dvořák chequia">
+        <div class="num">1.6</div>
+        <div class="info">
+          <div class="title" data-en="Humoresque (op.101 no.7)" data-es="Humoresca">Humoresca</div>
+          <div class="composer">Antonín Dvořák <span class="years">(1841–1904)</span> · Chequia</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-07-the-happy-farmer.pdf" target="_blank" data-vol="1" data-search="the happy farmer el campesino alegre robert schumann alemania">
+        <div class="num">1.7</div>
+        <div class="info">
+          <div class="title" data-en="The Happy Farmer" data-es="El campesino alegre">El campesino alegre</div>
+          <div class="composer">Robert Schumann <span class="years">(1810–56)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">1 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-08-german-dance-deutscher-tanz.pdf" target="_blank" data-vol="1" data-search="german dance (deutscher tanz) danza alemana c. ditters von dittersdorf austria">
+        <div class="num">1.8</div>
+        <div class="info">
+          <div class="title" data-en="German Dance (Deutscher Tanz)" data-es="Danza alemana">Danza alemana</div>
+          <div class="composer">C. Ditters von Dittersdorf <span class="years">(1739–99)</span> · Austria</div>
+        </div>
+        <div class="meta"><span class="pages">1 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-09-gavotte.pdf" target="_blank" data-vol="1" data-search="gavotte gavota françois j. gossec bélgica">
+        <div class="num">1.9</div>
+        <div class="info">
+          <div class="title" data-en="Gavotte" data-es="Gavota">Gavota</div>
+          <div class="composer">François J. Gossec <span class="years">(1734–1829)</span> · Bélgica</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-10-minuet-k-421.pdf" target="_blank" data-vol="1" data-search="minuet (k.421) minueto w. a. mozart austria">
+        <div class="num">1.10</div>
+        <div class="info">
+          <div class="title" data-en="Minuet (K.421)" data-es="Minueto">Minueto</div>
+          <div class="composer">W. A. Mozart <span class="years">(1756–91)</span> · Austria</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-11-minuet.pdf" target="_blank" data-vol="1" data-search="minuet minueto luigi boccherini italia">
+        <div class="num">1.11</div>
+        <div class="info">
+          <div class="title" data-en="Minuet" data-es="Minueto">Minueto</div>
+          <div class="composer">Luigi Boccherini <span class="years">(1743–1805)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-12-gavotte.pdf" target="_blank" data-vol="1" data-search="gavotte gavota jean becker alemania">
+        <div class="num">1.12</div>
+        <div class="info">
+          <div class="title" data-en="Gavotte" data-es="Gavota">Gavota</div>
+          <div class="composer">Jean Becker <span class="years">(1833–84)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-13-waltz.pdf" target="_blank" data-vol="1" data-search="waltz vals c. m. von weber alemania">
+        <div class="num">1.13</div>
+        <div class="info">
+          <div class="title" data-en="Waltz" data-es="Vals">Vals</div>
+          <div class="composer">C. M. von Weber <span class="years">(1786–1826)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-14-minuet-k-334.pdf" target="_blank" data-vol="1" data-search="minuet (k.334) minueto w. a. mozart austria">
+        <div class="num">1.14</div>
+        <div class="info">
+          <div class="title" data-en="Minuet (K.334)" data-es="Minueto">Minueto</div>
+          <div class="composer">W. A. Mozart <span class="years">(1756–91)</span> · Austria</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-15-hunters-chorus-der-freischutz.pdf" target="_blank" data-vol="1" data-search="hunters&#x27; chorus (der freischütz) coro de cazadores c. m. von weber alemania">
+        <div class="num">1.15</div>
+        <div class="info">
+          <div class="title" data-en="Hunters&#x27; Chorus (Der Freischütz)" data-es="Coro de cazadores">Coro de cazadores</div>
+          <div class="composer">C. M. von Weber <span class="years">(1786–1826)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-16-concerto-no-2-3rd-mvt-op-13.pdf" target="_blank" data-vol="1" data-search="concerto no.2, 3rd mvt (op.13) concierto n.º 2, 3.º mov. friedrich seitz alemania">
+        <div class="num">1.16</div>
+        <div class="info">
+          <div class="title" data-en="Concerto No.2, 3rd mvt (op.13)" data-es="Concierto n.º 2, 3.º mov.">Concierto n.º 2, 3.º mov.</div>
+          <div class="composer">Friedrich Seitz <span class="years">(1848–1918)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">4 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-17-concerto-no-5-1st-mvt-op-22.pdf" target="_blank" data-vol="1" data-search="concerto no.5, 1st mvt (op.22) concierto n.º 5, 1.º mov. friedrich seitz alemania">
+        <div class="num">1.17</div>
+        <div class="info">
+          <div class="title" data-en="Concerto No.5, 1st mvt (op.22)" data-es="Concierto n.º 5, 1.º mov.">Concierto n.º 5, 1.º mov.</div>
+          <div class="composer">Friedrich Seitz <span class="years">(1848–1918)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">4 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v1-18-concerto-no-5-3rd-mvt-op-22.pdf" target="_blank" data-vol="1" data-search="concerto no.5, 3rd mvt (op.22) concierto n.º 5, 3.º mov. friedrich seitz alemania">
+        <div class="num">1.18</div>
+        <div class="info">
+          <div class="title" data-en="Concerto No.5, 3rd mvt (op.22)" data-es="Concierto n.º 5, 3.º mov.">Concierto n.º 5, 3.º mov.</div>
+          <div class="composer">Friedrich Seitz <span class="years">(1848–1918)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">6 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="vol" data-vol="2">
+      <h2 data-en="Volume 2 — 8 baroque pieces" data-es="Volumen 2 — 8 piezas barrocas">Volumen 2 — 8 piezas barrocas</h2>
+      <div class="grid">
+      <a class="card" href="canciones/v2-01-courante-concerto-grosso-op-6-no-9.pdf" target="_blank" data-vol="2" data-search="courante (concerto grosso op.6 no.9) corrente arcangelo corelli italia">
+        <div class="num">2.1</div>
+        <div class="info">
+          <div class="title" data-en="Courante (Concerto Grosso op.6 no.9)" data-es="Corrente">Corrente</div>
+          <div class="composer">Arcangelo Corelli <span class="years">(1653–1713)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">1 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v2-02-allegro-sonata-op-5-no-1.pdf" target="_blank" data-vol="2" data-search="allegro (sonata op.5 no.1) allegro arcangelo corelli italia">
+        <div class="num">2.2</div>
+        <div class="info">
+          <div class="title" data-en="Allegro (Sonata op.5 no.1)" data-es="Allegro">Allegro</div>
+          <div class="composer">Arcangelo Corelli <span class="years">(1653–1713)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v2-03-concerto-in-g-minor-rv-317.pdf" target="_blank" data-vol="2" data-search="concerto in g minor (rv 317) concierto en sol menor antonio vivaldi italia">
+        <div class="num">2.3</div>
+        <div class="info">
+          <div class="title" data-en="Concerto in G minor (RV 317)" data-es="Concierto en sol menor">Concierto en sol menor</div>
+          <div class="composer">Antonio Vivaldi <span class="years">(1678–1741)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">14 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v2-04-gavotte-i-ii-bwv-1068.pdf" target="_blank" data-vol="2" data-search="gavotte i &amp; ii (bwv 1068) gavota i y ii j. s. bach alemania">
+        <div class="num">2.4</div>
+        <div class="info">
+          <div class="title" data-en="Gavotte I &amp; II (BWV 1068)" data-es="Gavota I y II">Gavota I y II</div>
+          <div class="composer">J. S. Bach <span class="years">(1685–1750)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v2-05-gavotte-en-rondeau-bwv-822.pdf" target="_blank" data-vol="2" data-search="gavotte en rondeau (bwv 822) gavota en rondó j. s. bach alemania">
+        <div class="num">2.5</div>
+        <div class="info">
+          <div class="title" data-en="Gavotte en Rondeau (BWV 822)" data-es="Gavota en rondó">Gavota en rondó</div>
+          <div class="composer">J. S. Bach <span class="years">(1685–1750)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v2-06-invention-no-1-bwv-772.pdf" target="_blank" data-vol="2" data-search="invention no.1 (bwv 772) invención n.º 1 j. s. bach alemania">
+        <div class="num">2.6</div>
+        <div class="info">
+          <div class="title" data-en="Invention No.1 (BWV 772)" data-es="Invención n.º 1">Invención n.º 1</div>
+          <div class="composer">J. S. Bach <span class="years">(1685–1750)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v2-07-sonata-accademica-op-2-no-8.pdf" target="_blank" data-vol="2" data-search="sonata accademica (op.2 no.8) sonata accademica f. m. veracini italia">
+        <div class="num">2.7</div>
+        <div class="info">
+          <div class="title" data-en="Sonata Accademica (op.2 no.8)" data-es="Sonata accademica">Sonata accademica</div>
+          <div class="composer">F. M. Veracini <span class="years">(1690–1768)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">12 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v2-08-allegro-suite-for-clavecin-in-g.pdf" target="_blank" data-vol="2" data-search="allegro (suite for clavecin in g) allegro joseph-hector fiocco bélgica">
+        <div class="num">2.8</div>
+        <div class="info">
+          <div class="title" data-en="Allegro (Suite for clavecin in G)" data-es="Allegro">Allegro</div>
+          <div class="composer">Joseph-Hector Fiocco <span class="years">(1703–41)</span> · Bélgica</div>
+        </div>
+        <div class="meta"><span class="pages">3 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="vol" data-vol="3">
+      <h2 data-en="Volume 3 — 8 baroque pieces" data-es="Volumen 3 — 8 piezas barrocas">Volumen 3 — 8 piezas barrocas</h2>
+      <div class="grid">
+      <a class="card" href="canciones/v3-01-gavotte.pdf" target="_blank" data-vol="3" data-search="gavotte gavota jean-baptiste lully (?) francia">
+        <div class="num">3.1</div>
+        <div class="info">
+          <div class="title" data-en="Gavotte" data-es="Gavota">Gavota</div>
+          <div class="composer">Jean-Baptiste Lully (?) <span class="years">(1632–87)</span> · Francia</div>
+        </div>
+        <div class="meta"><span class="pages">1 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v3-02-concerto-in-a-minor-rv-356.pdf" target="_blank" data-vol="3" data-search="concerto in a minor (rv 356) concierto en la menor antonio vivaldi italia">
+        <div class="num">3.2</div>
+        <div class="info">
+          <div class="title" data-en="Concerto in A minor (RV 356)" data-es="Concierto en la menor">Concierto en la menor</div>
+          <div class="composer">Antonio Vivaldi <span class="years">(1678–1741)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">12 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v3-03-gavotte-i-ii-le-temple-de-la-gloire.pdf" target="_blank" data-vol="3" data-search="gavotte i &amp; ii (le temple de la gloire) gavota i y ii jean-philippe rameau francia">
+        <div class="num">3.3</div>
+        <div class="info">
+          <div class="title" data-en="Gavotte I &amp; II (Le Temple de la Gloire)" data-es="Gavota I y II">Gavota I y II</div>
+          <div class="composer">Jean-Philippe Rameau <span class="years">(1683–1764)</span> · Francia</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v3-04-invention-no-8-bwv-779.pdf" target="_blank" data-vol="3" data-search="invention no.8 (bwv 779) invención n.º 8 j. s. bach alemania">
+        <div class="num">3.4</div>
+        <div class="info">
+          <div class="title" data-en="Invention No.8 (BWV 779)" data-es="Invención n.º 8">Invención n.º 8</div>
+          <div class="composer">J. S. Bach <span class="years">(1685–1750)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v3-05-invention-no-9-bwv-780.pdf" target="_blank" data-vol="3" data-search="invention no.9 (bwv 780) invención n.º 9 j. s. bach alemania">
+        <div class="num">3.5</div>
+        <div class="info">
+          <div class="title" data-en="Invention No.9 (BWV 780)" data-es="Invención n.º 9">Invención n.º 9</div>
+          <div class="composer">J. S. Bach <span class="years">(1685–1750)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">2 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v3-06-concerto-in-a-minor-bwv-1041.pdf" target="_blank" data-vol="3" data-search="concerto in a minor (bwv 1041) concierto en la menor j. s. bach alemania">
+        <div class="num">3.6</div>
+        <div class="info">
+          <div class="title" data-en="Concerto in A minor (BWV 1041)" data-es="Concierto en la menor">Concierto en la menor</div>
+          <div class="composer">J. S. Bach <span class="years">(1685–1750)</span> · Alemania</div>
+        </div>
+        <div class="meta"><span class="pages">18 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v3-07-gigue-op-2-no-7.pdf" target="_blank" data-vol="3" data-search="gigue (op.2 no.7) giga f. m. veracini italia">
+        <div class="num">3.7</div>
+        <div class="info">
+          <div class="title" data-en="Gigue (op.2 no.7)" data-es="Giga">Giga</div>
+          <div class="composer">F. M. Veracini <span class="years">(1690–1768)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">4 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      <a class="card" href="canciones/v3-08-minuet-op-2-no-11.pdf" target="_blank" data-vol="3" data-search="minuet (op.2 no.11) minueto f. m. veracini italia">
+        <div class="num">3.8</div>
+        <div class="info">
+          <div class="title" data-en="Minuet (op.2 no.11)" data-es="Minueto">Minueto</div>
+          <div class="composer">F. M. Veracini <span class="years">(1690–1768)</span> · Italia</div>
+        </div>
+        <div class="meta"><span class="pages">4 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      </div>
+    </section>
+  <div class="empty" data-en="No matches." data-es="Sin resultados.">Sin resultados.</div>
+</div>
+<footer>34 <span data-en="pieces" data-es="piezas">piezas</span> · 3 <span data-en="volumes" data-es="volúmenes">volúmenes</span></footer>
+<script>
+  let lang = "es";
+  function apply() {
+    document.querySelectorAll("[data-en]").forEach(el=>{
+      const t = el.getAttribute("data-"+lang); if(t!==null) el.textContent = t;
+    });
+    const s = document.getElementById("search");
+    s.placeholder = s.getAttribute("data-"+lang+"-ph");
+    document.documentElement.lang = lang;
+    document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===lang));
+    try{ localStorage.setItem("ffv-lang", lang); }catch(e){}
+  }
+  document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{lang=b.dataset.lang; apply();});
+  document.getElementById("search").addEventListener("input", e=>{
+    const q = e.target.value.trim().toLowerCase();
+    let any=false;
+    document.querySelectorAll(".card").forEach(c=>{
+      const hit = !q || c.dataset.search.includes(q);
+      c.style.display = hit ? "" : "none"; if(hit) any=true;
+    });
+    document.querySelectorAll(".vol").forEach(v=>{
+      const vis=[...v.querySelectorAll(".card")].some(c=>c.style.display!=="none");
+      v.style.display = vis ? "" : "none";
+    });
+    document.querySelector(".empty").style.display = any ? "none" : "block";
+  });
+  try{ const sv=localStorage.getItem("ffv-lang"); if(sv) lang=sv; }catch(e){}
+  if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }
+  apply();
+</script>
+</body>
+</html>

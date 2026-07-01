@@ -381,4 +381,9 @@
     });
     document.querySelector(".empty").style.display = any ? "none" : "block";
   });
-  try{ const sv=localStorage.getItem("ffv-lan
+  try{ const sv=localStorage.getItem("ffv-lang"); if(sv) lang=sv; }catch(e){}
+  if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }
+  apply();
+</script>
+</body>
+</html>

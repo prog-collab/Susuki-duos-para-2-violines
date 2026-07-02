@@ -26,17 +26,8 @@
     border-radius:8px; background:#ffffff22; }
   #title { flex:1; min-width:0; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   #title small { display:block; color:#cbb48f; font-size:12px; }
-  /* bottom controls */
-  #ctl { position:absolute; bottom:0; left:0; right:0; z-index:20; display:flex; align-items:center;
-    justify-content:center; gap:18px; padding:12px; background:linear-gradient(#0000,#000a);
-    transition:opacity .3s; }
-  #ctl.hide { opacity:0; pointer-events:none; }
-  #ctl button { background:var(--accent); color:#fff; border:0; width:54px; height:54px; border-radius:50%;
-    font-size:24px; cursor:pointer; box-shadow:0 2px 8px #0007; }
-  #ctl button:disabled { opacity:.3; cursor:default; }
-  #page { min-width:74px; text-align:center; font-size:16px; letter-spacing:1px; }
   #loading { position:absolute; z-index:10; color:#bbb; font-size:16px; }
-  #hint { position:absolute; bottom:78px; left:0; right:0; text-align:center; color:#fff9;
+  #hint { position:absolute; bottom:20px; left:0; right:0; text-align:center; color:#fff9;
     font-size:13px; z-index:15; transition:opacity .5s; }
 </style>
 </head>
@@ -50,12 +41,7 @@
     <a class="back" href="index.html" title="Volver al índice / Back to index">‹</a>
     <div id="title">—</div>
   </div>
-  <div id="hint">← →  o pedal para pasar página · toca para ocultar</div>
-  <div id="ctl">
-    <button id="prev" aria-label="Anterior">‹</button>
-    <span id="page">– / –</span>
-    <button id="next" aria-label="Siguiente">›</button>
-  </div>
+  <div id="hint">← →  o pedal para pasar página</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
@@ -75,9 +61,6 @@
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d', { alpha: false });
-    const pageEl = document.getElementById('page');
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
     let pdf = null, cur = 1, total = 0, rendering = false, pending = null;
 
     pdfjsLib.getDocument(file).promise.then(doc => {
@@ -105,8 +88,6 @@
         canvas.style.height = (vp.height / dpr) + 'px';
         return page.render({ canvasContext: ctx, viewport: vp }).promise;
       }).then(() => {
-        pageEl.textContent = cur + ' / ' + total;
-        prevBtn.disabled = cur <= 1; nextBtn.disabled = cur >= total;
         rendering = false;
         if (pending !== null) { const p = pending; pending = null; render(p); }
       }).catch(() => { rendering = false; });
@@ -126,8 +107,7 @@
     }
     const next = () => flip(1), prev = () => flip(-1);
 
-    // Buttons & click zones
-    nextBtn.onclick = next; prevBtn.onclick = prev;
+    // Click zones
     document.getElementById('nextZone').onclick = next;
     document.getElementById('prevZone').onclick = prev;
 
@@ -152,8 +132,8 @@
     }, {passive:true});
 
     // Auto-hide chrome
-    const bar = document.getElementById('bar'), ctl = document.getElementById('ctl'), hint = document.getElementById('hint');
-    let t; function show(){ bar.classList.remove('hide'); ctl.classList.remove('hide'); clearTimeout(t); t=setTimeout(()=>{bar.classList.add('hide'); ctl.classList.add('hide');},3000); }
+    const bar = document.getElementById('bar'), hint = document.getElementById('hint');
+    let t; function show(){ bar.classList.remove('hide'); clearTimeout(t); t=setTimeout(()=>{bar.classList.add('hide');},3000); }
     setTimeout(()=>{ hint.style.opacity = 0; }, 4000);
     ['mousemove','keydown','touchstart'].forEach(ev=>document.addEventListener(ev, show, {passive:true}));
     show();

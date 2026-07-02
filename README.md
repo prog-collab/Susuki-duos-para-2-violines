@@ -32,5 +32,5 @@ completa** y se pasa **de lado**. Funciona con pedales para partituras
 
 ## Contenido
 - `index.html` — índice bilingüe con buscador
-- `canciones/` — 34 PDF (18 + 8 + 8)
+- `canciones/` — 35 PDF (18 + 8 + 8 + 1)
 - `manifest.webmanifest`, `sw.js`, `icon-*.png` — soporte PWA

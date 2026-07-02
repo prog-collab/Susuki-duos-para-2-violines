@@ -49,9 +49,29 @@
     padding:3px 9px; border-radius:6px; font-size:11px; letter-spacing:.5px; }
   .empty { text-align:center; color:var(--muted); padding:40px; display:none; }
   footer { text-align:center; color:var(--muted); font-size:12px; padding:24px; }
+  #install-banner { display:none; position:fixed; left:0; right:0; bottom:0; z-index:20;
+    background:var(--panel); border-top:1px solid var(--line); box-shadow:0 -4px 14px rgba(0,0,0,.12);
+    padding:12px 16px; align-items:center; gap:12px; }
+  #install-banner img { width:36px; height:36px; flex:none; }
+  #install-banner .txt { flex:1; min-width:0; font-size:13px; color:var(--ink); line-height:1.35; }
+  #install-banner .txt b { display:block; font-size:14px; }
+  #install-banner button { border:0; border-radius:8px; padding:9px 14px; font-size:13px;
+    font-family:inherit; cursor:pointer; }
+  #install-yes { background:var(--accent); color:#fff; font-weight:600; }
+  #install-no { background:transparent; color:var(--muted); }
+  body.has-banner .wrap { padding-bottom:90px; }
 </style>
 </head>
 <body>
+<div id="install-banner">
+  <img src="icon-192.png" alt="">
+  <div class="txt">
+    <b data-en="Install Fun for 2 Violins" data-es="Instalar Fun for 2 Violins">Instalar Fun for 2 Violins</b>
+    <span data-en="Add it to your home screen to use it offline." data-es="Agregala a tu pantalla de inicio para usarla sin conexión.">Agregala a tu pantalla de inicio para usarla sin conexión.</span>
+  </div>
+  <button id="install-no" data-en="Not now" data-es="Ahora no">Ahora no</button>
+  <button id="install-yes" data-en="Install" data-es="Instalar">Instalar</button>
+</div>
 <header>
   <img class="logo" src="logo.svg" alt="Dos violines cruzados / Two crossed violins">
   <h1>Fun for 2 Violins</h1>
@@ -352,9 +372,22 @@
       </a>
       </div>
     </section>
+    <section class="vol" data-vol="4">
+      <h2 data-en="Volume 4 — Additional pieces" data-es="Volumen 4 — Piezas adicionales">Volumen 4 — Piezas adicionales</h2>
+      <div class="grid">
+      <a class="card" href="viewer.html?f=canciones/v4-01-sonata-in-f-major-hwv-370.pdf&es=Sonata%20en%20fa%20mayor%20%28HWV%20370%29&en=Violin%20Sonata%20in%20F%20Major%20%28HWV%20370%29" target="_blank" data-vol="4" data-search="violin sonata in f major (hwv 370) sonata en fa mayor (hwv 370) george frideric handel alemania/inglaterra">
+        <div class="num">4.1</div>
+        <div class="info">
+          <div class="title" data-en="Violin Sonata in F Major (HWV 370)" data-es="Sonata en fa mayor (HWV 370)">Sonata en fa mayor (HWV 370)</div>
+          <div class="composer">George Frideric Handel <span class="years">(1685–1759)</span> · Alemania/Inglaterra</div>
+        </div>
+        <div class="meta"><span class="pages">19 <span data-en="pp." data-es="pág.">pág.</span></span><span class="pdf">PDF</span></div>
+      </a>
+      </div>
+    </section>
   <div class="empty" data-en="No matches." data-es="Sin resultados.">Sin resultados.</div>
 </div>
-<footer>34 <span data-en="pieces" data-es="piezas">piezas</span> · 3 <span data-en="volumes" data-es="volúmenes">volúmenes</span></footer>
+<footer>35 <span data-en="pieces" data-es="piezas">piezas</span> · 4 <span data-en="volumes" data-es="volúmenes">volúmenes</span></footer>
 <script>
   let lang = "es";
   function apply() {
@@ -384,6 +417,63 @@
   try{ const sv=localStorage.getItem("ffv-lang"); if(sv) lang=sv; }catch(e){}
   if("serviceWorker" in navigator){ window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{})); }
   apply();
+
+  // --- Aviso de instalación (PWA) ---
+  (function(){
+    const banner = document.getElementById("install-banner");
+    const btnYes = document.getElementById("install-yes");
+    const btnNo = document.getElementById("install-no");
+    const DISMISS_KEY = "ffv-install-dismissed";
+    let deferredPrompt = null;
+
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches
+      || window.navigator.standalone === true;
+    const dismissed = (() => { try { return localStorage.getItem(DISMISS_KEY); } catch(e){ return null; } })();
+
+    function showBanner() {
+      if (isStandalone || dismissed) return;
+      banner.style.display = "flex";
+      document.body.classList.add("has-banner");
+    }
+    function hideBanner() {
+      banner.style.display = "none";
+      document.body.classList.remove("has-banner");
+    }
+    function dismiss() {
+      try { localStorage.setItem(DISMISS_KEY, "1"); } catch(e){}
+      hideBanner();
+    }
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      showBanner();
+    });
+
+    btnYes.addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+      }
+      dismiss();
+    });
+    btnNo.addEventListener("click", dismiss);
+
+    window.addEventListener("appinstalled", hideBanner);
+
+    // iOS Safari no dispara beforeinstallprompt: mostramos aviso con instrucciones manuales.
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes("Macintosh") && "ontouchend" in document);
+    const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+    if (isIOS && isSafari && !isStandalone && !dismissed) {
+      document.querySelector("#install-banner .txt span").textContent = lang === "en"
+        ? "Tap the Share icon, then “Add to Home Screen”."
+        : "Tocá el icono Compartir y luego “Agregar a inicio”.";
+      btnYes.style.display = "none";
+      showBanner();
+    }
+  })();
 </script>
 </body>
 </html>
